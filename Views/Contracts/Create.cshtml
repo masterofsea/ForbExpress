@@ -1,0 +1,266 @@
+﻿@model ForbExpress.Models.Contract
+
+@{
+    ViewData["PageTitle"] = "Добавление договора";
+    Layout = "_Layout";
+    
+}
+
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="~/plugins/jquery-step/jquery.steps.css">
+    <style>
+            #formValidate .wizard > .content {min-height: 25em;}
+            #example-vertical.wizard > .content {min-height: 24.5em;}
+    </style>
+    <link rel="stylesheet" href="~/plugins/font-icons/fontawesome/css/regular.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/forms/theme-checkbox-radio.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/forms/switches.css">
+    <link rel="stylesheet" href="~/plugins/font-icons/fontawesome/css/fontawesome.css">
+    <link href="~/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+    <link href="~/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+}
+
+@section Scripts
+{
+    <script src="~/plugins/jquery-step/jquery.steps.min.js"></script>
+    <script src="~/plugins/jquery-step/custom-jquery.steps.js"></script>
+    <script src="~/plugins/font-icons/feather/feather.min.js"></script>
+    <script type="text/javascript">
+        feather.replace();
+    </script>
+    <script src="~/plugins/flatpickr/flatpickr.js"></script>
+    <script src="~/plugins/flatpickr/custom-flatpickr.js"></script>
+}
+
+<div class="statbox widget box box-shadow">
+<div class="widget-header">
+    <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+            <h4>Добавление договора</h4>
+        </div>
+    </div>
+</div>
+<div class="widget-content widget-content-area">
+<form>
+<div id="circle-basic" class="">
+<h3>Арендатор</h3>
+<section>
+        
+    <h3>Арендатор</h3>
+
+    <div class="form-row">
+        <div class="form-group col-md-7">
+            <label asp-for="Lessee.Name"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="user"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.Name" class="form-control border-left-0" placeholder="Полное название">
+            </div>
+        </div>
+        <div class="form-group col-md-5">
+            <label asp-for="Lessee.ShortName"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.ShortName" class="form-control border-left-0" placeholder="Короткое название">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.Email"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.Email" class="form-control border-left-0" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.Phone"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.Phone" class="form-control border-left-0" placeholder="Телефон">
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.AdditionalContacts"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.AdditionalContacts" class="form-control border-left-0" placeholder="Дополнительные контакты">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Lessee.ContactName"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.ContactName" class="form-control border-left-0" placeholder="Контактное лицо">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Lessee.ContactNamePosition"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.ContactNamePosition" class="form-control border-left-0" placeholder="Должность контактного лица">
+            </div>
+        </div>
+
+    </div>
+    <hr/>
+    <h4>Реквизиты арендатора</h4>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.Bank"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.Bank" class="form-control border-left-0" placeholder="Банк">
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.Inn"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.Inn" class="form-control border-left-0" placeholder="ИНН">
+            </div>
+        </div>
+
+
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.Bic"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.Bic" class="form-control border-left-0" placeholder="БИК">
+            </div>
+        </div>
+
+    </div>
+                
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.Kpp"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.Kpp" class="form-control border-left-0" placeholder="КПП">
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.CheckingAccount"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.CheckingAccount" class="form-control border-left-0" placeholder="Расчетный счет">
+            </div>
+        </div>
+
+
+        <div class="form-group col-md-4">
+            <label asp-for="Lessee.Ogrn"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.Ogrn" class="form-control border-left-0" placeholder="ОГРН">
+            </div>
+        </div>
+    </div>
+            
+</section>
+
+<h3>Договор аренды</h3>
+<section>
+    <div class="form-row">
+        <div class="form-group col-md-7">
+            <label asp-for="ConclusionDate"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="calendar"></i>
+                    </span>
+                </div>
+                <input id="basicFlatpickr" value="@DateTime.Now.ToShortDateString()" class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date..">
+            </div>
+        </div>
+                    
+        <div class="form-group col-md-5">
+            <label asp-for="Lessee.ShortName"></label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i data-feather="activity"></i>
+                    </span>
+                </div>
+                <input asp-for="Lessee.ShortName" class="form-control border-left-0" placeholder="Короткое название">
+            </div>
+        </div>
+                    
+    </div>
+</section>
+        
+
+<h3>Партнер (опционально)</h3>
+<section>
+    <p>The next and previous buttons help you to navigate through your content.</p>
+</section>
+
+<h3>Договор почтового обслуживания (опционально)</h3>
+<section>
+    <p>The next and previous buttons help you to navigate through your content.</p>
+</section>
+        
+</div>
+</form>
+
+</div>
+</div>

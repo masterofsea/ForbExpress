@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForbExpress", "ForbExpress.csproj", "{CE93C02F-A8A3-4AB5-B890-0AAE5EDEECE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE93C02F-A8A3-4AB5-B890-0AAE5EDEECE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE93C02F-A8A3-4AB5-B890-0AAE5EDEECE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE93C02F-A8A3-4AB5-B890-0AAE5EDEECE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE93C02F-A8A3-4AB5-B890-0AAE5EDEECE6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
