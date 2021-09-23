@@ -1,0 +1,75 @@
+@model ForbExpress.Models.Identity.UserCreationModel
+@{
+    Layout = "_Layout";
+    ViewData["PageTitle"] = "Добавление пользователя";
+}
+
+@section Styles
+{
+    <link href="~/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/plugins/font-icons/fontawesome/css/fontawesome.css">
+    <link rel="stylesheet" href="~/plugins/font-icons/fontawesome/css/regular.css">
+}
+
+<div class="statbox widget box box-shadow">
+    <div class="widget-header">
+        <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                <h4>User Creation</h4>
+            </div>
+        </div>
+    </div>
+    <div class="widget-content widget-content-area">
+        <form asp-controller="Admin" asp-action="Create" method="post">
+            <div class="form-group mb-4">
+                <label asp-for="UserName"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend1"><i class="far fa-user"></i></span>
+                    </div>
+                    <input asp-for="UserName" class="form-control few-options" aria-describedby="inputGroupPrepend1" required>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+                    
+            <div class="form-group mb-4">
+                <label asp-for="Email"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend2"><i class="far fa-envelope"></i></span>
+                    </div>
+                    <input asp-for="Email" class="form-control" aria-describedby="inputGroupPrepend2" required>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+                    
+            <div class="form-group mb-4">
+                <label asp-for="Password"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend3"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input asp-for="Password" class="form-control" aria-describedby="inputGroupPrepend3" required>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+                    
+            <small id="emailHelp2" class="form-text text-muted">*Required Fields</small> 
+            <button type="submit" class="btn btn-primary mt-3">Create</button>
+            <a asp-action="Summary" class="btn btn-secondary mt-3">Cancel</a>
+        </form>
+    </div>
+</div>
+
+ 
+
+@section Scripts
+{
+    <script src="~/assets/js/forms/bootstrap_validation/bs_validation_script.js"></script>
+
+    <script src="~/plugins/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+    
+    <script src="~/plugins/bootstrap-maxlength/custom-bs-maxlength.js"></script>
+    
+    <script src="~/plugins/font-icons/feather/feather.min.js"></script>
+}

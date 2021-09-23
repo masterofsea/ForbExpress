@@ -1,0 +1,117 @@
+@model ForbExpress.Models.ViewModels.ContractsViewModels.ContractsFilterBindingModel
+@{
+    Layout = null;
+}
+
+
+<div class="modal-content text-wrap">
+    <div class="modal-header">
+        <h5 class="modal-title">Фильтрация</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <form asp-action="Summary" asp-route-filter="@Model" method="get">
+    <div class="modal-body">
+        <div class="form-group">
+            <label asp-for="Inn"></label>
+            <input asp-for="Inn" class="form-control form-control-sm" placeholder="ИНН арендатора" onkeypress="if(this.value.length&gt;12) return false;">
+        </div>
+        <div class="form-group">
+            <label asp-for="PartnerId"></label>
+            <input asp-for="PartnerId" class="form-control form-control-sm" placeholder="Id партнера" onkeypress="if(this.value.length&gt;12) return false;">
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="ContractNumber"></label>
+            <input asp-for="ContractNumber" class="form-control form-control-sm" placeholder="Номер договора">
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="PostalServiceContractNumber"></label>
+            <input asp-for="PostalServiceContractNumber" class="form-control form-control-sm" placeholder="Номер договора почтового обслуживания">
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Address"></label>
+            <input id="address" asp-for="Address" class="form-control form-control-sm" placeholder="Адрес">
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="Ifts"></label>
+            <select class="form-control" asp-for="Ifts" asp-items="@ViewBag.SelectItems">
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="ConclusionDate"></label>
+            <input asp-for="ConclusionDate" class="result form-control" id="date" placeholder="Date Picker...">
+        </div>
+        <script>
+                        		$('.datepicker').pickadate({
+                        			selectMonths: true,
+                        			selectYears: true
+                        		}),
+                        		$('.timepicker').pickatime()
+                    </script>
+                    <script>
+                        		$(function () {
+                        			$('#date-time').bootstrapMaterialDatePicker({
+                        				format: 'YYYY-MM-DD HH:mm'
+                        			});
+                        			$('#date').bootstrapMaterialDatePicker({
+                        				time: false
+                        			});
+                        			$('#date1').bootstrapMaterialDatePicker({
+                                            				time: false
+                                            			});
+                        			$('#time').bootstrapMaterialDatePicker({
+                        				date: false,
+                        				format: 'HH:mm'
+                        			});
+                        		});
+                    </script>
+        
+        <div class="form-group">
+            <label for="formControlRange">Example Range input</label>
+            <input type="range" class="form-control-range" id="formControlRange">
+        </div>
+        
+        
+            
+            
+        
+        <div class="custom-control custom-checkbox">
+            <input asp-for="Paid" class="custom-control-input" id="customCheck1">
+            <label asp-for="Paid" class="custom-control-label" for="customCheck1"></label>
+        </div>
+        
+        <div class="custom-control custom-switch">
+            <input asp-for="ReturnableInstance" class="custom-control-input" id="customSwitch1">
+            <label asp-for="ReturnableInstance" class="custom-control-label" for="customSwitch1"></label>
+        </div>
+        
+        
+        <script type="text/javascript">
+                            $("#address").suggestions({
+                                token: "462ae849be230884d898c36c36bebd248c6c9f7e",
+                                type: "ADDRESS",
+                                /* Вызывается, когда пользователь выбирает одну из подсказок */
+                                onSelect: function(suggestion) {
+                                    console.log(suggestion);
+                                }
+                            });
+        </script>
+            
+        
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-light">Применить фильтры</button>
+    </div>
+    </form>
+</div>

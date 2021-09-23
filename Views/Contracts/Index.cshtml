@@ -1,0 +1,185 @@
+@model ForbExpress.Models.ViewModels.ContractsViewModels.ContractsViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["PageTitle"] = "Договоры";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="~/assets/css/forms/theme-checkbox-radio.css">
+    <link href="~/assets/css/tables/table-basic.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/plugins/font-icons/fontawesome/css/fontawesome.css">
+    <link href="~/plugins/tagInput/tags-input.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/elements/custom-pagination.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/bootstrap-select/bootstrap-select.min.css">
+    
+    <style>
+        .glow span
+        {
+            transition: all .5s;
+        }
+        
+        .glow span:hover
+        {
+            text-shadow: 0 0 15px #06f9fb;
+            /*0 0 80px #06f9fb,*/
+            /*0 0 180px #06f9fb;*/
+            color: #009688;
+        }
+        
+        #html5-extension_info
+        {
+            white-space: normal;
+            color: #009688;
+            font-weight: 600;
+            border: 1px solid #191e3a;
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+    </style>
+}
+
+
+@section Scripts
+{
+    <script src="~/plugins/table/datatable/datatables.js"></script>
+    <script src="~/plugins/font-icons/feather/feather.min.js"></script>
+    <script src="~/plugins/tagInput/tags-input.js"></script>
+    <script src="~/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    
+    <script type="text/javascript">
+        feather.replace();
+    </script>
+}
+
+
+<div id="tableDropdown" class="col-lg-12 col-12 layout-spacing">
+    <div class="statbox widget box box-shadow">
+        <div class="widget-header">
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <h4>
+                        Contracts
+                    </h4>
+                </div> 
+            </div>
+        </div>
+
+        <div class="widget-content widget-content-area">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-4">
+                    <label>Result:</label>
+                    <select class="selectpicker" data-width="fit" data-style="btn btn-outline-primary">
+                        <option>10</option>
+                        <option>15</option>
+                        <option>30</option>
+                        <option>50</option>
+                    </select>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right">
+                    <h2>Попугаи любят хлеб?</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover mb-4">
+                        <thead>
+                        <tr>
+                            <th>Номер</th>
+                            <th class="text-center">Дата заключения</th>
+                            <th class="text-center">Дата начала</th>
+                            <th class="text-center">Дата окончания</th>
+                            <th class="text-center">Срок</th>
+                            <th class="text-center">Оплачено</th>
+            
+                            <th>Арендатор</th>
+            
+                            <th>Партнер</th>
+            
+                            <th>Договор ПО</th>
+            
+                            <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var contract in Model.Contracts)
+                        {
+                            <tr>
+                                <td class="glow"><span>@contract.ContractNumber</span></td>
+                                <td class="text-center">@contract.ConclusionDate.ToShortDateString()</td>
+                                <td class="text-center">@contract.LeaseStartDate.ToShortDateString()</td>
+                                <td class="text-center">@contract.LeaseEndDate.ToShortDateString()</td>
+                                <td class="text-center">@((contract.LeaseEndDate - contract.LeaseStartDate).TotalDays)</td>
+                                <td class="text-center"><span class="badge badge-success">Оплачено</span></td>
+            
+                                <td>@contract.Lessee.Name</td>
+            
+                                <td>@contract.Partner.Name</td>
+            
+                                <td>
+                                    @if (contract.MailContract != null)
+                                    {
+                                        <a href="#" aria-disabled="true" role="button">
+                                            <i data-feather="mail"></i>
+                                            12312121213GD
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" role="button" class="text-dark">
+                                            <i data-feather="mail"></i>
+                                            Отсутствует ПО
+                                        </a>
+                                    }
+                                </td>
+            
+                                <td class="text-center">
+                                    <div class="dropdown custom-dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+            
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void(0);">Download</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Share</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                        @* <tfoot> *@
+                        @* <tr><th class="text-center" rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search #"></th><th class="text-center" rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search #"></th><th class="text-center" rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search #"></th><th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search Name"></th><th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search Position"></th><th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search Office"></th><th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search Age"></th><th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search Start date"></th><th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search Salary"></th><th class="invisible" rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Search "></th></tr> *@
+                        @* </tfoot> *@
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="dataTables_info" id="html5-extension_info" role="status" aria-live="polite">Showing page 1 of 4</div>
+                </div>
+        
+                <div class="col-md-7">
+                    <div class="pagination-custom_outline">
+                        <a href="javascript:void(0);" class="prev">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </a>
+                        <ul class="pagination">
+                            <li><a href="javascript:void(0);">1</a></li>
+                            <li class="active"><a href="javascript:void(0);">2</a></li>
+                            <li><a href="javascript:void(0);">3</a></li>
+                        </ul>
+                        <a href="javascript:void(0);" class="next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
