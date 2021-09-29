@@ -20,6 +20,13 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Views\Contracts\scene.gltf">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
 <!--    <ItemGroup>-->
 <!--        <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.DotNet" Version="5.0.7"/>-->
 <!--    </ItemGroup>-->

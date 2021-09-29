@@ -19,11 +19,11 @@ namespace ForbExpress.Models.ViewModels.ContractsViewModels
         
         
         [DisplayName("ИНН арендатора")]
-        public long? Inn { get; set; }
+        public long Inn { get; set; }
         
         
         [DisplayName("Id партнера")]
-        public long? PartnerId { get; set; }
+        public long PartnerId { get; set; }
         
         
         [DisplayName("Возвратный экземпляр")]

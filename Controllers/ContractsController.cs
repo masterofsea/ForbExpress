@@ -54,19 +54,33 @@ namespace ForbExpress.Controllers
         }
 
         
-        public IActionResult Index()
+        // public IActionResult Index()
+        // {
+        //     return View(new ContractsViewModel
+        //     {
+        //         Contracts = ContractsRepository.GetAllContracts(),
+        //         PageViewModel = null,
+        //         ContractsFilterBindingModel = null
+        //     });
+        // }
+        
+        public IActionResult Index(ContractsFilterBindingModel filter)
         {
             return View(new ContractsViewModel
             {
                 Contracts = ContractsRepository.GetAllContracts(),
                 PageViewModel = null,
-                ContractsFilterBindingModel = null
+                ContractsFilterBindingModel = filter
             });
         }
         
-        
-        
-        
+        [HttpPost]
+        public IActionResult Filtrate(ContractsFilterBindingModel filter)
+        {
+            return RedirectToAction(nameof(Index), filter);
+        }
+
+
         [HttpPost]
         public IActionResult Delete(int id)
         {
@@ -129,6 +143,22 @@ namespace ForbExpress.Controllers
             ContractsRepository.AddContract(contract);
 
             return RedirectToAction(nameof(Summary));
+        }
+        
+        public IActionResult MailContractDetails(int id)
+        {
+            var rnd = new Random();
+            var mailContract = new MailContract
+            {
+                Id = id,
+                Price1 = rnd.Next()
+            };
+            return PartialView(mailContract);
+        }
+        
+        public IActionResult FilterDetails(ContractsFilterBindingModel currentFilter)
+        {
+            return PartialView(currentFilter);
         }
     }
 }

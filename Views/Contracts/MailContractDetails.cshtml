@@ -1,0 +1,21 @@
+﻿@model ForbExpress.Models.MailContract
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            X
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="modal-text">@Model.Id</p>
+        <p class="modal-text">@Model.Price1</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+        <button type="button" class="btn btn-primary">Save</button>
+    </div>
+</div>
+
+
