@@ -17,11 +17,11 @@ namespace ForbExpress.Models
         [Display(Name = "Короткое название")]
         public string ShortName { get; set; }
         
-        [EmailAddress]
+        
         [Display(Name = "Email")]
         public string Email { get; set; }
         
-        [Phone]
+        
         [Display(Name = "Телефон")]
         public string Phone { get; set; }
         

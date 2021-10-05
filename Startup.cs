@@ -34,7 +34,7 @@ namespace ForbExpress
             services.AddEntityFrameworkNpgsql().AddDbContext<UsersIdentityContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("MainConnection")));
             
-            services.AddTransient<IPartnersRepository, EfPartnersRepository>();
+            services.AddTransient<IPartnersRepository, TestPartnersRepository>();
             
             services.AddTransient<IContractsRepository, TestContractsRepository>();
             
@@ -70,7 +70,7 @@ namespace ForbExpress
             {
                 endpoints.MapControllerRoute(
                     "default",
-                    "{controller=Contracts}/{action=Index}/{pageNumber?}/{pageCapacity?}");
+                    "{controller=Contracts}/{action=Index}/{page?}/{pageCapacity?}");
             });
         }
     }

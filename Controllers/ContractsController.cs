@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ForbExpress.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class ContractsController : Controller
     {
         private IContractsRepository ContractsRepository { get; }
@@ -21,12 +21,12 @@ namespace ForbExpress.Controllers
         }
 
 
-        public IActionResult Summary(ContractsFilterBindingModel filter, int pageNumber = 1, int pageCapacity = 15)
+        public IActionResult Summary(ContractsFilterViewModel contractsFilter, int pageNumber = 1, int pageCapacity = 15)
         {
             var filteredContracts = ContractsRepository.GetAllContracts();
 
             var contractsCount = filteredContracts.Count();
-            
+
             try
             {
                 var pagingModel = new PageViewModel(contractsCount, pageNumber, pageCapacity);
@@ -37,64 +37,96 @@ namespace ForbExpress.Controllers
                 {
                     Contracts = contractsAtPage,
                     PageViewModel = pagingModel,
-                    ContractsFilterBindingModel = filter
+                    ContractsFilterViewModel = contractsFilter
                 });
-                
-                
             }
             catch (PageModelException)
             {
                 return new NotFoundResult();
             }
         }
-        
+
         public IActionResult Archive()
         {
             return NotFound();
         }
 
-        
-        // public IActionResult Index()
-        // {
-        //     return View(new ContractsViewModel
-        //     {
-        //         Contracts = ContractsRepository.GetAllContracts(),
-        //         PageViewModel = null,
-        //         ContractsFilterBindingModel = null
-        //     });
-        // }
-        
-        public IActionResult Index(ContractsFilterBindingModel filter)
+        public IActionResult Index(int page = 1, int pageCapacity = 15, ContractSortState sortOrder = ContractSortState.ConclusionDateDesc,
+            ContractsFilterViewModel filter = null)
         {
+            var rawContracts = ContractsRepository.GetAllContracts();
+            
+            if (filter != null)
+            {
+                if (!string.IsNullOrEmpty(filter.Address))
+                {
+                    rawContracts = rawContracts.Where(c => c.Address == filter.Address);
+                }
+
+                if (!string.IsNullOrEmpty(filter.ContractNumber))
+                {
+                    rawContracts = rawContracts.Where(c => c.ContractNumber == filter.ContractNumber);
+                }
+
+                if (!string.IsNullOrEmpty(filter.PartnerName))
+                {
+                    rawContracts = rawContracts.Where(c => c.Partner.Name == filter.PartnerName);
+                }
+
+                if (!string.IsNullOrEmpty(filter.LesseeName))
+                {
+                    rawContracts = rawContracts.Where(c => c.Lessee.Name == filter.LesseeName);
+                }
+                
+                
+                if (!string.IsNullOrEmpty(filter.PostalServiceContractNumber))
+                {
+                    rawContracts = rawContracts.Where(c => c.MailContract.MailContractNumber == filter.PostalServiceContractNumber);
+                }
+
+                if (filter.Paid)
+                {
+                    rawContracts = rawContracts.Where(c => c.Paid == filter.Paid);
+                }
+            }
+
+            var sortedContracts = sortOrder switch
+            {
+                ContractSortState.ConclusionDateDesc => rawContracts.OrderByDescending(c => c.ConclusionDate),
+                ContractSortState.ContractNumberAsc => rawContracts.OrderBy(c => c.ContractNumber),
+                ContractSortState.LesseeNameAsc => rawContracts.OrderBy(c => c.Lessee.Name),
+                ContractSortState.PartnerNameAsc => rawContracts.OrderBy(s => s.Partner.Name),
+                _ => rawContracts.OrderBy(c => c.ConclusionDate),
+            };
+
+
+            var count = rawContracts.Count();
+            var contracts = sortedContracts.Skip((page - 1) * pageCapacity).Take(pageCapacity).ToList();
+
+            var pageViewModel = new PageViewModel(count, page, pageCapacity);
             return View(new ContractsViewModel
             {
-                Contracts = ContractsRepository.GetAllContracts(),
-                PageViewModel = null,
-                ContractsFilterBindingModel = filter
+                Contracts = contracts,
+                PageViewModel = pageViewModel,
+                ContractsFilterViewModel = filter
             });
         }
+
         
-        [HttpPost]
-        public IActionResult Filtrate(ContractsFilterBindingModel filter)
-        {
-            return RedirectToAction(nameof(Index), filter);
-        }
-
-
         [HttpPost]
         public IActionResult Delete(int id)
         {
             var contract = ContractsRepository.GetContractById(id);
 
             if (!ContractsRepository.RemoveContractById(contract))
-                    return NotFound();
+                return NotFound();
 
-            contract.ContractState = ContractState.Disabled;
-            ContractsRepository.UpdateContract(contract);
-            
-            return RedirectToAction(nameof(Summary));
+            // contract.ContractState = ContractState.Disabled;
+            // ContractsRepository.UpdateContract(contract);
+
+            return RedirectToAction(nameof(Index));
         }
-        
+
         [HttpPost]
         public IActionResult Restore(int id)
         {
@@ -105,10 +137,10 @@ namespace ForbExpress.Controllers
 
             contract.ContractState = ContractState.Active;
             ContractsRepository.UpdateContract(contract);
-            
+
             return RedirectToAction(nameof(Summary));
         }
-        
+
         [HttpPost]
         public IActionResult Update(Contract contract)
         {
@@ -124,27 +156,33 @@ namespace ForbExpress.Controllers
             return PartialView(contract);
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            Contract contract = null;
+            if (id != 0)
+            {
+                contract = ContractsRepository.GetContractById(id);
+            }
+            
+            return View(contract);
         }
 
-        public IActionResult ContractFilter(ContractsFilterBindingModel filterBindingModel)
+        public IActionResult ContractFilter(ContractsFilterViewModel contractsFilterViewModel)
         {
             var ifts = Enum.GetValues(typeof(Ifts)).Cast<int>().ToArray();
             ViewBag.SelectItems = new SelectList(ifts, ifts.GetValue(0));
-            
-            return PartialView(filterBindingModel);
+
+            return PartialView(contractsFilterViewModel);
         }
-        
+
         [HttpPost]
         public IActionResult AddContract(Contract contract)
         {
             ContractsRepository.AddContract(contract);
 
-            return RedirectToAction(nameof(Summary));
+            return RedirectToAction(nameof(Index));
         }
-        
+
         public IActionResult MailContractDetails(int id)
         {
             var rnd = new Random();
@@ -154,11 +192,6 @@ namespace ForbExpress.Controllers
                 Price1 = rnd.Next()
             };
             return PartialView(mailContract);
-        }
-        
-        public IActionResult FilterDetails(ContractsFilterBindingModel currentFilter)
-        {
-            return PartialView(currentFilter);
         }
     }
 }

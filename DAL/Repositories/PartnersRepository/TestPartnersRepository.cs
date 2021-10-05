@@ -8,7 +8,8 @@ namespace ForbExpress.DAL.Repositories.PartnersRepository
     public class TestPartnersRepository : IPartnersRepository
     {
         private List<Partner> Partners { get; }
-        private string[] Names { get; } = {"Борис", "Андрей", "Стас", "Игорь", "Егор", "Никита", "Людмила", "Арсений", "Салават"};
+        private string[] ContactNames { get; } = {"Борис", "Андрей", "Стас", "Игорь", "Егор", "Никита", "Людмила", "Арсений", "Салават"};
+        private string[] Names { get; } = {"ООО Ромашка", "АО Газпромбанк", "ООО Ай-Теко", "ФГУП ГосНИИАС", "QSOFT", "Siblion"};
 
         public TestPartnersRepository()
         {
@@ -23,6 +24,7 @@ namespace ForbExpress.DAL.Repositories.PartnersRepository
                         Email = $"{rnd.Next()}@gmail.com",
                         Name = Names[rnd.Next(0, Names.Length)],
                         Phone = $"+7(9{rnd.Next(10, 100)}) {rnd.Next(100, 1000)} - {rnd.Next(10, 100)} - {rnd.Next(10, 100)}",
+                        ContactName =  ContactNames[rnd.Next(0, ContactNames.Length)]
                     });
             }
         }

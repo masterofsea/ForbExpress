@@ -27,6 +27,25 @@ h1, h2, h3, h4, h5, h6 {
 :focus {
   outline: none; }
 
+::-webkit-scrollbar{
+  width: 14px;
+}
+
+::-webkit-scrollbar-track{
+  background: #506690;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2) inset;
+}
+
+::-webkit-scrollbar-thumb{
+  border-radius:8px;
+  background: #c2d5ff;
+  border: 3px solid #506690;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #273546;
+}
+
 ::-moz-selection {
   /* Code for Firefox */
   color: #1b55e2;

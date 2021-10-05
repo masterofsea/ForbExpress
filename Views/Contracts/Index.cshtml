@@ -17,6 +17,9 @@
     <link href="~/assets/css/components/custom-modal.css" rel="stylesheet" type="text/css">
     <link href="~/assets/css/components/tabs-accordian/custom-accordions.css" rel="stylesheet" type="text/css">
     <link href="~/plugins/tagInput/tags-input.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/users/user-profile.css" rel="stylesheet" type="text/css">
+    <link href="~/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/css/elements/tooltip.css" rel="stylesheet" type="text/css">
     <style>
         .glow span
         {
@@ -41,31 +44,7 @@
             padding: 10px 16px;
             border-radius: 6px;
             font-size: 13px;
-        }
-        
-        tr.hide-table-padding td {
-            padding: 0;
-        }
-        
-        ::-webkit-scrollbar{
-            width: 14px;
-        }
-        
-        ::-webkit-scrollbar-track{
-            background: #506690;
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2) inset;
-        }
-        
-        ::-webkit-scrollbar-thumb{
-            border-radius:8px;
-            background: #c2d5ff;
-            border: 3px solid #506690;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover{
-            background: #273546;
-        }
-         
+        }                  
     </style>
 }
 
@@ -78,12 +57,15 @@
     <script src="~/plugins/bootstrap-select/bootstrap-select.min.js"></script>
     <script src="~/assets/js/components/ui-accordions.js"></script>
     <script src="~/plugins/tagInput/tags-input.js"></script>
+    <script src="~/plugins/apex/apexcharts.min.js"></script>
+    <script src="~/plugins/apex/custom-apexcharts.js"></script>
+    <script src="~/assets/js/elements/tooltip.js"></script>
 
 
     <script type="text/javascript">
         feather.replace();
     </script>
-    
+
     <script type="text/javascript">
      
             $(function () {
@@ -97,249 +79,92 @@
                     });
                 });
             })
+            
+            let addFilter = () => {
+                $( "filter1" ).append( "<strong>Hello</strong>" );
+            }
     </script>
-    
-    
-
-    @*<script src="~/three.min.js" integrity="sha512-Q+IG0h7As6sfqE2t1Xf5IeamNyCXb4EXxGCA9Mlbpv7xtwurVHNdVDbyWeSQ3ulPf2FRlqeu77Ec3SJDdIR63w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js"></script>*@
-    @* <script> *@
-    @*     scene = new THREE.Scene(); *@
-    @*     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000); *@
-    @*     camera.position = 10; *@
-    @*      *@
-    @*     renderer = new THREE.WebGLRenderer({alpha: true, antialias: true}); *@
-    @*     renderer.setClearColor(0x000000, 0); *@
-    @*     renderer.setSize(1280, 720); *@
-    @*      *@
-    @*     renderer.domElement.setAttribute("id", "Model"); *@
-    @*     document.body.insertBefore(renderer.domElement, document.body.firstChild); *@
-    @*      *@
-    @*     const aLight = new THREE.AmbientLight(0x404040, 1.2); *@
-    @*     scene.add(aLight); *@
-    @*      *@
-    @*     const pLight = new THREE.PointLight(0xFFFFFF, 1.2); *@
-    @*     pLight.position.set(0, -3, 7); *@
-    @*     scene.add(pLight); *@
-    @*      *@
-    @*     let loader = new THREE.GLTFLoader(); *@
-    @*     let obj = null; *@
-    @*      *@
-    @*      *@
-    @*     loader.load('C:\\Users\\Masterofsea147\\Desktop\\ForbExpress\\wwwroot\\scene.gltf', function (gltf){ *@
-    @*        obj = gltf; *@
-    @*        obj.scene.scale.set(1.3, 1.3, 1.3); *@
-    @*         *@
-    @*        scene.add(obj.scene); *@
-    @*     }); *@
-    @*      *@
-    @*     function animate() { *@
-    @*         requestAnimationFrame(animate); *@
-    @*          *@
-    @*         if (obj) *@
-    @*             obj.scene.rotation.y += 0.03;           *@
-    @*          *@
-    @*         renderer.render(scene, camera); *@
-    @*     } *@
-    @*      *@
-    @*     animate(); *@
-    @* </script> *@
-
-    @* <script type="text/javascript"> *@
-    @*     feather.replace(); *@
-    @* </script> *@
 }
 
 <div class="row">
-            <div class="col-md-12 col-sm-12 mb-4">
-                <div id="iconsAccordion" class="accordion-icons">
-                    <div class="card">
-                        <div class="card-header" id="...">
-                            <section class="mb-0 mt-0">
-                                <div role="menu" class="collapsed" data-toggle="collapse" data-target="#iconAccordionOne" aria-expanded="true" aria-controls="iconAccordionOne">
-                                    <div class="accordion-icon"><i data-feather="filter"></i></div>Filters<div class="icons"></div>
-                                    <span class="badge outline-badge-primary"> Primary </span>
+    <div class="col-md-12 col-sm-12 mb-4">
+        <div id="iconsAccordion" class="accordion-icons">
+            <div class="card">
+                <div class="card-header" id="...">
+                    <section class="mb-0 mt-0">
+                        <div role="menu" class="collapsed" data-toggle="collapse" data-target="#iconAccordionOne" aria-expanded="true" aria-controls="iconAccordionOne">
+                            <div class="accordion-icon"><i data-feather="filter"></i></div>Filters<div class="icons"></div>
+                        </div>
+                    </section>
+                </div>
+                <div id="iconAccordionOne" class="collapse" aria-labelledby="..." data-parent="#iconsAccordion">
+                    <div class="card-body">
+                        <form method="get">
+                            <div class="form-row mb-3" id="filter1">
+                                <div class="col-md-5 col-sm-5">
+                                    <select class="form-control  basic">
+                                        <option selected="selected">Номер договора</option>
+                                        <option>Дата заключения</option>
+                                        <option>Дата начала аренды</option>
+                                    </select>
                                 </div>
-                            </section>
-                        </div>
-                        <div id="iconAccordionOne" class="collapse" aria-labelledby="..." data-parent="#iconsAccordion">
-                            <div class="card-body">
-                                <form asp-action="Filtrate" asp-route-filter="@Model" method="post">
-                                    @* <div class="form-group"> *@
-                                    @*     <label asp-for="@Model.ContractsFilterBindingModel.Inn"></label> *@
-                                    @*     <input asp-for="@Model.ContractsFilterBindingModel.Inn" class="form-control form-control-sm" placeholder="ИНН арендатора" onkeypress="if(this.value.length&gt;12) return false;"> *@
-                                    @* </div> *@
-                                    @* <div class="form-group"> *@
-                                    @*     <label asp-for="@Model.ContractsFilterBindingModel.PartnerId"></label> *@
-                                    @*     <input asp-for="@Model.ContractsFilterBindingModel.PartnerId" class="form-control form-control-sm" placeholder="Id партнера" onkeypress="if(this.value.length&gt;12) return false;"> *@
-                                    @* </div> *@
-                                    @* <div class="form-group"> *@
-                                    @*     <label asp-for="@Model.ContractsFilterBindingModel.ContractNumber"></label> *@
-                                    @*     <input asp-for="@Model.ContractsFilterBindingModel.ContractNumber" class="form-control form-control-sm" placeholder="Номер договора"> *@
-                                    @* </div> *@
-                                    @* <div class="form-group"> *@
-                                    @*     <label asp-for="@Model.ContractsFilterBindingModel.PostalServiceContractNumber"></label> *@
-                                    @*     <input asp-for="@Model.ContractsFilterBindingModel.PostalServiceContractNumber" class="form-control form-control-sm" placeholder="Номер договора почтового обслуживания"> *@
-                                    @* </div> *@
-                                    @* <div class="form-group"> *@
-                                    @*     <label asp-for="@Model.ContractsFilterBindingModel.Address"></label> *@
-                                    @*     <input id="address" asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control form-control-sm" placeholder="Адрес"> *@
-                                    @* </div> *@
-                                    @* <div class="form-group"> *@
-                                    @*     <label asp-for="@Model.ContractsFilterBindingModel.Ifts"></label> *@
-                                    @*     <select class="form-control" asp-for="@Model.ContractsFilterBindingModel.Ifts" asp-items="@ViewBag.SelectItems"> *@
-                                    @*     </select> *@
-                                    @* </div> *@
-                                    @* <div class="form-group"> *@
-                                    @*     <label asp-for="@Model.ContractsFilterBindingModel.ConclusionDate"></label> *@
-                                    @*     <input asp-for="@Model.ContractsFilterBindingModel.ConclusionDate" class="result form-control" id="date" placeholder="Date Picker..."> *@
-                                    @* </div> *@
-                                    @* <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button> *@
-                                    @* <button type="submit" class="btn btn-primary">Save</button> *@
-                                    <h3>Арендатор</h3>
-                                    
-                                        <div class="form-row">
-                                            <div class="form-group col-md-7">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="user"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="Полное название">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-5">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="Короткое название">
-                                                </div>
-                                            </div>
-                                    
-                                        </div>
-                                    
-                                        <div class="form-row">
-                                            <div class="form-group col-md-4">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="Email">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="Телефон">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="Дополнительные контакты">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="Контактное лицо">
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="Должность контактного лица">
-                                                </div>
-                                            </div>
-                                    
-                                        </div>
-                                        <hr/>
-                                        <h4>Реквизиты арендатора</h4>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-4">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="Банк">
-                                                </div>
-                                            </div>
-                                    
-                                            <div class="form-group col-md-4">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="ИНН">
-                                                </div>
-                                            </div>
-                                    
-                                    
-                                            <div class="form-group col-md-4">
-                                                <label asp-for="@Model.ContractsFilterBindingModel.Address"></label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i data-feather="activity"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input asp-for="@Model.ContractsFilterBindingModel.Address" class="form-control border-left-0" placeholder="БИК">
-                                                </div>
-                                            </div>
-                                        </div>
-                                </form>
+                                <div class="col-md-2 col-sm-2">
+                                    <select class="selectpicker">
+                                        <option>Contains</option>
+                                        <option>Equal to</option>
+                                        <option>Starts with</option>
+                                        <option>Ends with</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <input id="t-text" type="text" name="txt" placeholder="Some Text..." class="form-control" required="">
+                                </div>
+                                <div class="col-md-1 col-sm-1">
+                                    <button type="button" class="btn btn-danger  mb-2 mr-2 rounded-circle"><i data-feather="x" onclick="addFilter()"></i></button>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-row mb-3" id="filter2">
+                                                            <div class="col-md-5 col-sm-5">
+                                                                <select class="form-control  basic">
+                                                                    <option selected="selected">Номер договора</option>
+                                                                    <option>Дата заключения</option>
+                                                                    <option>Дата начала аренды</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-2 col-sm-2">
+                                                                <select class="selectpicker">
+                                                                    <option>Contains</option>
+                                                                    <option>Equal to</option>
+                                                                    <option>Starts with</option>
+                                                                    <option>Ends with</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4">
+                                                                <input id="t-text" type="text" name="txt" placeholder="Some Text..." class="form-control" required="">
+                                                            </div>
+                                                            <div class="col-md-1 col-sm-1">
+                                                                <button type="button" class="btn btn-danger  mb-2 mr-2 rounded-circle"><i data-feather="x" onclick="addFilter()"></i></button>
+                                                            </div>
+                                                        </div>
+                            <div class="form-row mb-3">
+                                <button type="button" class="btn btn-primary  mb-2 mr-2 rounded-circle"><i data-feather="plus" onclick="addFilter()"></i></button>
+                            </div>
+                            <button type="reset" class="btn btn-danger mt-3">Сбросить фильтры</button>
+                            <button type="submit" class="btn btn-primary mt-3">Применить фильтры</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            
         </div>
+    </div>
+</div>
 <div class="statbox widget box box-shadow">
     <div class="widget-content widget-content-area">
         <div class="row">
             <div class="col-md-2 col-sm-12 mb-4">
                 <label>Сортировать по:</label>
                 <select class="selectpicker">
-                    <option>Номеру договора</option>
+                    <option><a asp-action="Index" asp-route-sortOrder="ConclusionDateDesc">Номеру договора</a></option>
                     <option>Дате заключения</option>
                     <option>Названию партнера</option>
                     <option>Названию арендатора</option>
@@ -347,20 +172,23 @@
             </div>
             <div class="col-md-2 col-sm-12 mb-4">
                 <label>Выводить на странице по:</label>
-                <select class="selectpicker">
-                    <option class="text-align">10</option>
-                    <option>15</option>
-                    <option>30</option>
-                    <option>50</option>
+                <select class="selectpicker" data-show-subtext="true">
+                    <option data-subtext="записей на странице" class="text-align">10</option>
+                    <option data-subtext="записей на странице">15</option>
+                    <option data-subtext="записей на странице">30</option>
+                    <option data-subtext="записей на странице">50</option>
                 </select>
             </div>
+            <div class="col-md-6 col-sm-12 mb-4"></div>
             <div class="col-md-2 col-sm-12 mb-4">
-                <img src="~\assets\img\90x90.jpg" alt=""/>
+                <label>Создание нового договора</label>
+                <a asp-action="Create" class="btn btn-primary mb-2 mr-2 btn-lg"><div class="row">Добавить договор <i data-feather="book"></i></div></a>
             </div>
+            
         </div>
         <div class="row">
-            <div id="modDialog" class="modal fade" >
-                <div id="dialogContent" class="modal-dialog  modal-dialog-centered modal-lg"></div>
+            <div id="modDialog" class="modal fade">
+                <div id="dialogContent" class="modal-dialog  modal-dialog-centered"></div>
             </div>
                 
             <div class="table-responsive">
@@ -394,16 +222,38 @@
                             <td class="text-center">@((contract.LeaseEndDate - contract.LeaseStartDate).TotalDays)</td>
                             <td class="text-center"><span class="badge badge-success">Оплачено</span></td>
 
-                            <td>@contract.Lessee.Name</td>
+                            <td>
+                                <a asp-action="MailContractDetails" asp-route-id="@contract.Lessee.Id" aria-disabled="true" role="button" class="mailContract bs-tooltip"
+                                   data-toggle="tooltip" data-html="true" 
+                                   title="<div>Email: @contract.Lessee.Email</div><div>Phone: @contract.Lessee.Phone</div>">
+                                    <i data-feather="user"></i>
+                                    @contract.Lessee.Name
+                                </a>
+                            </td>
 
-                            <td>@contract.Partner.Name</td>
+                            <td>
+                                @if (contract.PartnerId != null)
+                                {
+                                    <a asp-controller="Partners" asp-action="PartnerDetails" asp-route-partnerId="@contract.Partner.Id" aria-disabled="true" role="button" class="mailContract">
+                                        <i data-feather="aperture"></i>
+                                        @contract.Partner.Name
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Partners" asp-action="PartnerDetails" asp-route-partnerId="@contract.Partner.Id" role="button" class="text-dark mailContract">
+                                        <i data-feather="aperture"></i>
+                                        Партнер отсутствует
+                                    </a>
+                                }
+                            </td>
 
                             <td>
                                 @if (contract.MailContract != null)
                                 {
                                     <a asp-action="MailContractDetails" asp-route-id="@contract.MailContract.Id" aria-disabled="true" role="button" class="mailContract">
                                         <i data-feather="mail"></i>
-                                        @contract.MailContract.Id
+                                        @contract.MailContract.MailContractNumber
                                     </a>
                                 }
                                 else
@@ -416,15 +266,25 @@
                             </td>
 
                             <td class="text-center">
-                                <div class="dropdown custom-dropdown">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="dropdown custom-dropdown-icon">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                     </a>
-
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1" style="will-change: transform;">
-                                        <a class="dropdown-item" href="#">Написать сообщение</a>
-                                        <a class="dropdown-item" href="#">Редактировать</a>
-                                        <a class="dropdown-item" href="#">Удалить</a>
+                                    
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink-4" style="will-change: transform;">
+                                        <a class="dropdown-item" asp-controller="Mail" asp-action="Index"><i data-feather="send"></i>Отправить письмо</a>
+                                        <form method="get" asp-action="Create">
+                                            <input name="id" type="hidden" value="@contract.Id">
+                                            <button type="submit" class="button-link dropdown-item">
+                                                <i data-feather="edit-2"></i>Редактировать
+                                            </button>
+                                        </form>
+                                        
+                                        <form method="post" asp-action="Delete" asp-route-id="@contract.Id">
+                                            <button type="submit" class="button-link dropdown-item">
+                                                <i data-feather="trash-2"></i>В корзину
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </td>
@@ -439,23 +299,26 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                <div class="dataTables_info" id="html5-extension_info" role="status" aria-live="polite">Showing page 1 of 4</div>
+                <div class="dataTables_info" id="html5-extension_info" role="status" aria-live="polite">
+                    Showing page @Model.PageViewModel.CurrentPage of @Model.PageViewModel.TotalPages
+                </div>
             </div>
         
             <div class="col-md-7">
-                <div class="pagination-custom_outline">
-                    <a href="javascript:void(0);" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                    </a>
-                    <ul class="pagination">
-                        <li><a href="javascript:void(0);">1</a></li>
-                        <li class="active"><a href="javascript:void(0);">2</a></li>
-                        <li><a href="javascript:void(0);">3</a></li>
-                    </ul>
-                    <a href="javascript:void(0);" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </a>
-                </div>
+                <page-link page-model="Model.PageViewModel" page-action="Index"/>
+                @* <div class="pagination-custom_outline"> *@
+                @*     <a href="javascript:void(0);" class="prev"> *@
+                @*         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg> *@
+                @*     </a> *@
+                @*     <ul class="pagination"> *@
+                @*         <li><a href="javascript:void(0);">1</a></li> *@
+                @*         <li class="active"><a href="javascript:void(0);">2</a></li> *@
+                @*         <li><a href="javascript:void(0);">3</a></li> *@
+                @*     </ul> *@
+                @*     <a href="javascript:void(0);" class="next"> *@
+                @*         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> *@
+                @*     </a> *@
+                @* </div> *@
             </div>
         </div>
     </div>

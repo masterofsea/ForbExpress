@@ -23,7 +23,9 @@ namespace ForbExpress.Controllers
 
         public IActionResult PartnerDetails(int partnerId)
         {
-            return PartialView();
+            var partner = PartnersRepository.GetPartnerById(partnerId);
+            
+            return PartialView(partner);
         }
     }
 }

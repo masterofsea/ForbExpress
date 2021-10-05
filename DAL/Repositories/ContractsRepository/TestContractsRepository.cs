@@ -11,7 +11,7 @@ namespace ForbExpress.DAL.Repositories.ContractsRepository
     {
         private static TestPartnersRepository TestPartnersRepository { get; } = new();
         private static List<Contract> Contracts { get; }
-        private static string[] Names { get; } = {"Борис", "Андрей", "Стас", "Игорь", "Егор", "Никита", "Людмила", "Арсений", "Салават"};
+        private static string[] Names { get; } = { "QSOFT", "Sberbank", "Сталь и сплавы", "Карачеево-черкесский металзавод", "Пушкинская пекарня", "Матрикс" };
         private string[] Cities { get; } = {"Туристская", "Фомичева", "Ленина", "Первомайская"};
         
         private string[] Professions { get; } =
@@ -27,21 +27,24 @@ namespace ForbExpress.DAL.Repositories.ContractsRepository
             var iftss = Enum.GetValues(typeof(Ifts));
             var partnersCount = TestPartnersRepository.GetPartnersCount();
 
-            upperId = 15;
+            upperId = 200;
             var leaseStartDate = new DateTime();
             
             for (var i = 1; i <= upperId; ++i)
             {
                 var leaseEndDate = leaseStartDate + TimeSpan.FromDays(rnd.Next(1, 10000));
-                
+                var partner = TestPartnersRepository.GetPartnerById(rnd.Next(1, partnersCount));
                 Contracts.Add(new Contract
                 {
                     Id = i,
                     Ifts = iftss.GetValue(rnd.Next(0, iftss.Length))?.ToString(),
-                    Partner = TestPartnersRepository.GetPartnerById(rnd.Next(1, partnersCount)),
+                    Partner = partner,
+                    PartnerId = partner.Id,
                     Lessee = new Lessee
                     {
-                        Name = Names[rnd.Next() % Names.Length]
+                        Name = Names[rnd.Next() % Names.Length],
+                        Phone = $"+7 ({rnd.Next(900, 1000)}) {rnd.Next(100, 1000)} - {rnd.Next(10, 100)} - {rnd.Next(10, 100)}",
+                        Email = $"{rnd.Next()}@gmail.com"
                     },
                     Penalty = new decimal(rnd.Next()),
                     Price1 = new decimal(rnd.Next()),

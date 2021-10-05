@@ -37,6 +37,7 @@ namespace ForbExpress.Models
         /// <summary>
         /// Дата заключения договора аренды
         /// </summary>
+        [DisplayName("Дата заключения")]
         public DateTime ConclusionDate { get; set; }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace ForbExpress.Models
         /// </summary>
         public RegistrationType RegistrationType { get; set; }
 
-        public int PartnerId { get; set; }
+        public int? PartnerId { get; set; }
         /// <summary>
         /// ИНформация о партнере
         /// </summary>
@@ -93,6 +94,8 @@ namespace ForbExpress.Models
         
         [DisplayName("Оплачено")]
         public bool Paid { get; set; }
+        
+        public bool Receipt { get; set; }
 
         public decimal Penalty { get; set; }
 

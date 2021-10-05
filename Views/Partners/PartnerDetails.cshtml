@@ -1,1 +1,45 @@
-﻿
+﻿@model ForbExpress.Models.Partner
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">@Model.Name</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            X
+        </button>
+    </div>
+    <script type="text/javascript">
+        feather.replace();
+    </script>
+    <div class="modal-body">
+        <div class="user-profile">
+            <div class="text-center user-info">
+                @* <img src="~/assets/img/pep.jpg" alt="avatar"> *@
+                <p class="">Информация о партнере @Model.Name</p>
+            </div>
+            <div class="user-info-list">
+                <ul class="contacts-block list-unstyled">
+                    <li class="contacts-block__item  text-align-center">
+                        <i data-feather="user"></i> @Model.ContactName
+                    </li>
+                    <li class="contacts-block__item text-align-center">
+                        <a href="mailto:example@mail.com">
+                            <i data-feather="mail"></i>@Model.Email
+                        </a>
+                    </li>
+                    <li class="contacts-block__item  text-align-center">
+                        <i data-feather="phone"></i> @Model.Phone
+                    </li>
+                </ul>
+            </div>
+            <div id="s-line-area"></div>
+            
+            
+                
+                <script src="~/plugins/apex/custom-apexcharts.js"></script>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+        <button type="button" class="btn btn-primary">Save</button>
+    </div>
+</div>
